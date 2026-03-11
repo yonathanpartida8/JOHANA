@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Para mi amorcito bella ✨ </title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;400;600&family=Montserrat:wght@200&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           CONFIGURACIÓN DE VARIABLES Y RESET
+           ========================================
+        */
+        :root {
+            --pink-soft: #ffb7c5;
+            --pink-hot: #ff85a1;
+            --purple-space: #4b306a;
+            --purple-deep: #24143c;
+            --black-depth: #020202;
+            --gold-glow: #fff4d1;
+            --white-glass: rgba(255, 255, 255, 0.12);
+            --transition-smooth: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: var(--black-depth);
+            font-family: 'Quicksand', sans-serif;
+            color: #fff;
+        }
+
+
+        /* ========================================
+           LLUVIA DE EMOJIS (LLAVE MÁGICA)
+           ========================================
+        */
+        .emoji-rain {
+            position: absolute;
+            top: -50px;
+            font-size: 28px;
+            pointer-events: none;
+            z-index: 1;
+            animation: fallAnimation linear forwards;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
+        }
+
+        @keyframes fallAnimation {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+
+/* ========================================
+   INTERFAZ DEL FRASCO (MÍSTICO & PREMIUM)
+   ======================================== */
+.main-scene {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* Perspectiva aumentada para que el 3D se note más pro */
+    perspective: 1200px;
+    background: radial-gradient(circle at center, #1a0a2e 0%, #050208 100%);
+}
+
+.jar-outer {
+    position: relative;
+    width: 220px;
+    height: 300px;
+    cursor: pointer;
+    z-index: 20;
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-style: preserve-3d;
+}
+
+/* Efecto de flotación constante para que se vea místico */
+.jar-outer {
+    animation: floatJar 6s ease-in-out infinite;
+}
+
+@keyframes floatJar {
+    0%, 100% { transform: translateY(0) rotateX(0); }
+    50% { transform: translateY(-15px) rotateX(5deg); }
+}
+
+.jar-outer:hover {
+    transform: scale(1.08) rotateY(15deg);
+}
+
+/* La Tapa del Frasco - Mejorada con textura */
+.jar-cap {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 45px;
+    /* Madera más rica o metal oscuro */
+    background: linear-gradient(135deg, #4e342e 0%, #2a1b19 100%);
+    border-radius: 12px 12px 4px 4px;
+    z-index: 25;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.6), inset 0 2px 3px rgba(255,255,255,0.1);
+    transition: all 1.2s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+}
+
+/* Cuerpo del Frasco - Vidrio con reflejos realistas */
+.jar-glass {
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    border-radius: 30px 30px 80px 80px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: relative;
+    overflow: hidden;
+    /* Sombra externa que brilla e interna que da profundidad */
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.5), 
+        inset 0 0 30px rgba(255, 255, 255, 0.05),
+        inset -10px 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* Reflejo vertical para dar realismo al vidrio */
+.jar-glass::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 15%;
+    width: 15%;
+    height: 80%;
+    background: linear-gradient(to right, rgba(255,255,255,0.15), transparent);
+    border-radius: 40px;
+    pointer-events: none;
+}
+
+
+/* ========================================
+   NÚCLEO DE ENERGÍA VIVA (PREMIUM)
+   ======================================== */
+.jar-energy {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 140px; /* Un poco más grande para que abrace el contenido */
+    height: 140px;
+    /* Graduación múltiple para dar efecto de profundidad 3D */
+    background: radial-gradient(circle at 30% 30%, 
+                var(--pink-soft) 0%, 
+                var(--purple-space) 45%, 
+                rgba(142, 68, 173, 0.4) 100%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    /* El blur es la clave de la magia */
+    filter: blur(45px);
+    /* Mezclamos pulso con una rotación leve para que la energía "baile" */
+    animation: corePulse 5s infinite alternate ease-in-out, 
+               coreRotate 10s infinite linear;
+    z-index: 1;
+    mix-blend-mode: screen; /* Para que ilumine lo que tiene cerca sin taparlo */
+}
+
+@keyframes corePulse {
+    0% { 
+        transform: translate(-50%, -50%) scale(0.85); 
+        opacity: 0.5;
+        filter: blur(40px);
+    }
+    100% { 
+        transform: translate(-50%, -50%) scale(1.25); 
+        opacity: 0.8;
+        filter: blur(55px);
+    }
+}
+
+@keyframes coreRotate {
+    from { rotate: 0deg; }
+    to { rotate: 360deg; }
+}
+
+
+/* ========================================
+   SISTEMA DE PARTÍCULAS (MAGIA DINÁMICA)
+   ======================================== */
+.sparkle {
+    position: absolute;
+    width: 3px; 
+    height: 3px;
+    background: radial-gradient(circle, #fff 0%, var(--pink-hot) 100%);
+    border-radius: 50%;
+    /* Un resplandor más etéreo */
+    box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.8);
+    opacity: 0;
+    pointer-events: none;
+    /* Animación con retrasos aleatorios sugeridos por JS o clases */
+    animation: twinkleSparkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkleSparkle {
+    0% { 
+        opacity: 0; 
+        transform: translateY(0) scale(0.5); 
+    }
+    30% { 
+        opacity: 1; 
+        transform: translateY(-20px) scale(1.2) rotate(45deg); 
+    }
+    100% { 
+        opacity: 0; 
+        transform: translateY(-50px) scale(0.3) rotate(180deg); 
+    }
+}
+
+/* Variedades para que no se vea repetitivo */
+.sparkle:nth-child(2n) { width: 5px; height: 5px; animation-duration: 4s; }
+.sparkle:nth-child(3n) { background: #ffd700; box-shadow: 0 0 10px #ffd700; animation-delay: 1s; }
+
+
+/* ========================================
+   HOJA DE CARTA (PREMIUM REFINED)
+   ======================================== */
+.letter-container {
+    position: absolute;
+    width: 92%;
+    height: 0;
+    /* Un degradado sutil para que parezca papel real */
+    background: linear-gradient(to bottom, #ffffff 0%, #fcfaff 100%);
+    border-radius: 30px 30px 15px 15px;
+    /* Sombra más profunda y difuminada para realismo */
+    box-shadow: 0 -25px 70px rgba(0,0,0,0.4), inset 0 0 20px rgba(255,255,255,0.5);
+    opacity: 0;
+    transform: translateY(250px) scale(0.95);
+    transition: all 1.4s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 100;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(221, 221, 221, 0.6);
+    backdrop-filter: blur(5px);
+}
+
+.letter-container.open {
+    height: 90%;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    padding: 45px 30px;
+}
+
+.letter-header {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.8rem;
+    color: var(--purple-deep);
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+    letter-spacing: 1px;
+}
+
+.letter-header::after {
+    content: '───── ✨ ─────';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    opacity: 0.6;
+    letter-spacing: 5px;
+}
+
+.letter-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    color: #34495e;
+    /* Interlineado ajustado para legibilidad emocional */
+    line-height: 1.8;
+    font-size: 1.2rem;
+    text-align: justify;
+    padding: 0 15px;
+    font-weight: 400;
+    /* Suavizado de fuente para que se vea más pro */
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar estilizado pero discreto */
+.letter-content::-webkit-scrollbar { 
+    width: 5px; 
+}
+.letter-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+.letter-content::-webkit-scrollbar-thumb { 
+    background: linear-gradient(var(--pink-hot), var(--purple-deep));
+    border-radius: 10px; 
+}
+
+
+/* ========================================
+           PARTÍCULAS DE MAZAPÁN (SCROLL)
+           ========================================
+        */
+        .mazapan-trail {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            pointer-events: none;
+            z-index: 1001;
+            object-fit: contain;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+        }
+
+        /* ========================================
+           UI COMPLEMENTARIA
+           ========================================
+        */
+        .intro-overlay {
+            position: absolute;
+            bottom: 50px;
+            width: 85%;
+            text-align: center;
+            z-index: 5;
+            animation: fadeInOut 3s infinite ease-in-out;
+        }
+
+        .intro-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            color: rgba(255,255,255,0.8);
+            text-shadow: 0 0 10px rgba(0,0,0,1);
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+
+        .btn-reload {
+            margin-top: 30px;
+            width: 100%;
+            padding: 20px;
+            border: none;
+            background: linear-gradient(45deg, var(--purple-space), var(--purple-deep));
+            color: white;
+            border-radius: 20px;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 2px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
+
+        /* Pantalla de Flash Blanco */
+        #flash-effect {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #fff;
+            z-index: 500;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas-bg"></canvas>
+    <div class="nebula-container" id="nebulaBox">
+        </div>
+    <div id="flash-effect"></div>
+
+    <audio id="bgMusic" src="musica.mp3" loop></audio>
+
+    <div class="intro-overlay" id="introUI">
+        <p class="intro-text">Amorcito linda, toca el frasquito para que me leas expresarme :> 🙏🤍✨</p>
+    </div>
+
+    <div class="main-scene" id="scene">
+        <div class="jar-outer" id="magicJar">
+            <div class="jar-cap" id="jarCap"></div>
+            <div class="jar-glass">
+                <div class="jar-energy"></div>
+                <script>
+                    for(let i=0; i<15; i++) {
+                        document.write(`<div class="sparkle" style="top:${Math.random()*80+10}%; left:${Math.random()*80+10}%; animation-delay:${Math.random()*2}s"></div>`);
+                    }
+                </script>
+            </div>
+        </div>
+
+        <div class="letter-container" id="mainLetter">
+            <h1 class="letter-header">TE AMO MI AMOR JOHANA</h1>
+            <div class="letter-content" id="scrollContainer">
+                <p><strong>Mi Amorcito Linda...</strong></p>
+                <br>
+                <p>TE AMO AMO AMO AMO</p>
+                <br>
+                <p>Primero que nada quiero decirte algo que para mí es lo más importante, pues yo te amo muchísimo, amorcito 💘. De verdad, con todo mi ser y corazón. A veces siento que las palabras no alcanzan para explicar todo lo que siento por ti, pero aun así quiero intentarlo, porque tú mereces saber lo mucho que significas para mí, pues c:.
+
+Sé que ayer tuviste un día muy pesado y que no la pasaste nada bien mi tiquita, y pues la verdad eso me duele, porque cuando tú estás triste o pasando un momento difícil, a mí también se me aprieta el corazón y es porque me importas muchisimo, y neta Me hubiera gustado muchísimo poder estar ahí contigo, abrazarte fuerte y quedarme contigo un rato, escucharte con calma mi tiauita y aunque estemos a distancia por ahorita, de verdad quisiera poder cruzar la pantalla y darte un abrazo largo hasta que te sintieras muchisimo más tranquila, amorcito :>. sabes y quiero que recuerdes algo muy importante, pues tu eres una chica increíble 💘. Tal vez a veces tú misma no lo ves o dudas de ti, pero yo sí lo veo. Yo veo a una chica fuerte, valiente, con un corazón enorme y con una forma de ser que de verdad me encanta, tu eres muy linda, muy bonita, pero lo más bonito de ti no es solo lo que se ve por fuera, pues también es todo lo que llevas dentro. Tu forma de pensar, tu forma de sentir, tu manera de amar y la forma tan bonita en la que te preocupas por las personas que quieres c': ✨💘.</p>
+                <br>
+                <p>La verdad es que cada pequeño detalle tuyo hace que te ame más. Tu forma de hablar, tu forma de reír, tus expresiones, incluso esas cositas que tú tal vez ves como defectos, raios mi amorcito, neta que para mí son parte de lo que te hace tan especial, pues c: No cambiaría nada de ti, porque todo eso es lo que hace que seas tú, y justamente a esa chica tan única es a la que amo muchísimo 💘. sabes y pues a veces me pongo a pensar en lo afortunado que soy por habernos encontrado, pues entre tantas personas en el mundo, la vida nos dejó conocernos… y para mí eso vale muchísimo. Poco a poco te fuiste volviendo alguien muy importante para mí. No eres solo alguien especial, pues tu eres alguien que realmente significa muchísimo en mi vida, amorcito 🫂💘.
+
+</p>
+                <br>
+                <p>También quiero que tengas algo muy claro, pues. Yo no estoy contigo para lastimarte ni para jugar con tus sentimientos. Estoy contigo porque te amo de verdad. No voy a reemplazarte, no voy a cambiarte por nadie y tampoco voy a traicionar lo que tenemos. Para mí eres única, y nadie puede ocupar tu lugar, porque tú eres tú… y eso no se puede reemplazar 💘, pyes yo no tengo intención de serte infiel ni de hacer algo que te haga daño. Al contrario, lo único que quiero es cuidarte, respetarte y demostrarte todos los días que eres importante para mí mi tiquita pues Cuando uno ama de verdad, no anda buscando a alguien más ni aprobacion de alguien mas sabes y pues porque ya encontró a la persona que ama y neta que yo contigo encontré algo muy especial y lindo ✨., y pues enserio quiero ser alguien en quien puedas confiar. Alguien con quien puedas hablar cuando estés triste, cuando tengas un mal día, cuando necesites desahogarte o simplemente cuando quieras sentirte acompañada. Aunque estemos lejos físicamente, quiero que sientas que aquí estoy para ti siempre, amorcito 🫂 y pues si algún día te sientes cansada, triste o con dudas sobre ti misma, quiero que recuerdes algo, pues tu eres una chica valiosa, hermosa e increíble. Tienes muchas cosas bonitas en ti, aunque a veces tú misma no te des cuenta. No dejes que un mal día te haga olvidar lo mucho que vales mi amorcito 💘✨.</p>
+                <br>
+                <div style="height: 400px; border-left: 2px solid var(--pink-hot); padding-left: 20px; margin: 40px 0;">
+                    <p><i>Yo voy a estar aquí para ti. En los días buenos, en los días tranquilos y también en los días difíciles pues porque te amo y mucho y siento que cuando uno ama a alguien de verdad, no solo está cuando todo está perfecto sabws pues también se queda cuando las cosas se ponen difíciles, pues el amor también es acompañar mi amorcito 🫂, neta que me importas mucho más de lo que imaginas. Tu bienestar me importa, tu felicidad me importa, tus sentimientos me importan. Ocupas un lugar muy grande en mi corazón, amorcito 💘. Muchisimas Gracias por existir, gracias por ser como eres y gracias por permitirme estar en tu vida, incluso a la distancia amorcito, pues para mí eres una chica muy especial, alguien a quien amo muchísimo y alguien que de verdad valoro.</i></p>
+                    <br>
+                    <p>Te amo demasiado, amorcito :>. Y aunque a veces no encuentre las palabras perfectas, pues quiero que nunca olvides que enserio eres muy importante para mí, eres alguien muy especial y siempre voy a valorar tenerte en mi vida 💘🫂✨..</p>
+                </div>
+                
+                <p style="text-align: center; font-style: italic; color: #888;">Neta que te amo con todo mi ser amorcito :>.</p>
+                
+                <button class="btn-reload" onclick="location.reload()">TE AMO✨</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ========================================
+           MOTOR DE AUDIO (WEB AUDIO API)
+           ========================================
+        */
+        const AudioFX = {
+            ctx: null,
+            init() {
+                this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+            },
+            playShimmer() {
+                if(!this.ctx) this.init();
+                const now = this.ctx.currentTime;
+                for(let i=0; i<8; i++) {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(800 + (i * 250), now);
+                    osc.frequency.exponentialRampToValueAtTime(2500, now + 1.5);
+                    gain.gain.setValueAtTime(0.1, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 1.5);
+                    osc.connect(gain); gain.connect(this.ctx.destination);
+                    osc.start(now + (i * 0.05)); osc.stop(now + 1.5);
+                }
+            },
+            playDeepOpen() {
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(120, now);
+                osc.frequency.exponentialRampToValueAtTime(40, now + 2);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.linearRampToValueAtTime(0, now + 2);
+                osc.connect(gain); gain.connect(this.ctx.destination);
+                osc.start(); osc.stop(now + 2);
+            }
+        };
+
+        /* ========================================
+           GENERACIÓN DE ELEMENTOS VISUALES
+           ========================================
+        */
+        const Visuals = {
+            init() {
+                this.createNebulas();
+                this.createClouds();
+            },
+            createNebulas() {
+                const box = document.getElementById('nebulaBox');
+                const colors = ['#ffb7c5', '#4b306a', '#ff85a1', '#24143c'];
+                for(let i=0; i<6; i++) {
+                    const neb = document.createElement('div');
+                    neb.className = 'nebula';
+                    neb.style.width = (Math.random()*400 + 300) + 'px';
+                    neb.style.height = neb.style.width;
+                    neb.style.background = colors[i % colors.length];
+                    neb.style.top = Math.random()*100 + '%';
+                    neb.style.left = Math.random()*100 + '%';
+                    neb.style.animationDelay = (Math.random()*10) + 's';
+                    box.appendChild(neb);
+                }
+            },
+            createClouds() {
+                for(let i=0; i<8; i++) {
+                    const wrap = document.createElement('div');
+                    wrap.className = 'cloud-wrap';
+                    wrap.style.top = (Math.random()*80 + 10) + '%';
+                    wrap.style.left = '-200px';
+                    
+                    const img = document.createElement('div');
+                    img.className = 'cloud-img';
+                    img.innerHTML = '☁️'; // Aquí puedes poner el <img> de tu nube
+                    img.style.fontSize = (Math.random()*60 + 80) + 'px';
+                    img.style.animationDelay = (Math.random()*20) + 's';
+                    img.style.animationDuration = (Math.random()*15 + 20) + 's';
+                    
+                    wrap.appendChild(img);
+                    document.body.appendChild(wrap);
+                }
+            },
+            spawnEmoji() {
+                const emojis = ['🙂', '🙃', '✨', '💜', '🌸'];
+                const e = document.createElement('div');
+                e.className = 'emoji-rain';
+                e.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+                e.style.left = Math.random() * 100 + 'vw';
+                const dur = Math.random()*3 + 4;
+                e.style.animationDuration = dur + 's';
+                e.style.fontSize = (Math.random()*15 + 20) + 'px';
+                document.body.appendChild(e);
+                setTimeout(() => e.remove(), dur * 1000);
+            }
+        };
+
+        /* ========================================
+           LÓGICA DE INTERACCIÓN PRINCIPAL
+           ========================================
+        */
+        const jar = document.getElementById('magicJar');
+        const cap = document.getElementById('jarCap');
+        const letter = document.getElementById('mainLetter');
+        const flash = document.getElementById('flash-effect');
+        const music = document.getElementById('bgMusic');
+        const intro = document.getElementById('introUI');
+
+        let isOpened = false;
+
+        jar.addEventListener('click', () => {
+            if(isOpened) return;
+            isOpened = true;
+
+            // Iniciar Audio
+            AudioFX.init();
+            AudioFX.playShimmer();
+            AudioFX.playDeepOpen();
+            music.play().catch(e => console.log("Música requiere interacción previa"));
+
+            // Animación Tapa
+            cap.style.transform = 'translate(-50%, -400px) rotate(450deg) scale(0)';
+            cap.style.opacity = '0';
+
+            // Secuencia de Apertura
+            setTimeout(() => {
+                flash.style.opacity = '1';
+                setTimeout(() => {
+                    jar.style.display = 'none';
+                    intro.style.display = 'none';
+                    letter.classList.add('open');
+                    flash.style.opacity = '0';
+                    // Iniciar lluvia constante
+                    setInterval(() => Visuals.spawnEmoji(), 800);
+                }, 400);
+            }, 600);
+        });
+
+        /* ========================================
+           EFECTO DE SCROLL (PURO MAZAPÁN)
+           ========================================
+        */
+        function spawnMazapanTrail(x, y) {
+            const m = document.createElement('img');
+            m.src = 'mazapan.png';
+            m.className = 'mazapan-trail';
+            m.style.left = (x - 25) + 'px';
+            m.style.top = (y - 25) + 'px';
+            document.body.appendChild(m);
+
+            const angle = Math.random() * 360;
+            const destX = (Math.random() - 0.5) * 250;
+            const destY = -200 - Math.random() * 100;
+
+            m.animate([
+                { transform: 'translate(0,0) rotate(0deg) scale(1)', opacity: 1 },
+                { transform: `translate(${destX}px, ${destY}px) rotate(${angle}deg) scale(0)`, opacity: 0 }
+            ], {
+                duration: 2500, // +600 líneas merecen duración extendida
+                easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)'
+            }).onfinish = () => m.remove();
+        }
+
+        const scrollContainer = document.getElementById('scrollContainer');
+        
+        scrollContainer.addEventListener('touchmove', (e) => {
+            if(Math.random() > 0.7) {
+                spawnMazapanTrail(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        });
+
+        scrollContainer.addEventListener('mousemove', (e) => {
+            if(isOpened && Math.random() > 0.9) {
+                spawnMazapanTrail(e.clientX, e.clientY);
+            }
+        });
+
+        // Inicializar visuales al cargar
+        window.onload = () => Visuals.init();
+
+    </script>
+</body>
+</html>
